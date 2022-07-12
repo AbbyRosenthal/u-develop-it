@@ -27,6 +27,36 @@ db.query(`SELECT * FROM candidates`, (err, rows) => {
     console.log(rows);
 });
 
+//returns a single candidate
+db.query(`SELECT * FROM candidates WHERE id=1`, (err,row) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log(row);
+});
+
+//Deletes a candidate
+// db.query(`DELETE FROM candidates WHERE id=?`,1, (err, result) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(result);
+// })
+
+//Create a candidate
+const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected)
+VALUES (?, ?, ?, ?)`;
+//ABOVE ... the ?'s are placeholders
+//values must match the values in params, thats why we use an array
+const params = [1, 'Ronald', 'Firbank', 1];
+
+db.query(sql, params, (err, result) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log(result);
+})
+
 //NEEDS TO BE THE LAST ROUTE- OVERRIDES ALL OTHERS
 //Default response for any other request (NOT FOUND)
 app.use((req,res) => {
